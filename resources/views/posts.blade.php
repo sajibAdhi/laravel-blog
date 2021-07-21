@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Blog</title>
 
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="<?= url("css/app.css") ?>">
 </head>
 <body>
     <?php foreach ($posts as $post) :?>

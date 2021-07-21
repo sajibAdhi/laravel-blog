@@ -6,12 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Blog</title>
 
-    <link rel="stylesheet" href="<?= base_path("css/app.css");?>">
+    <link rel="stylesheet" href="<?= url("css/app.css");?>">
 </head>
 <body>
         <article>
             <?= $post ?>
+
+            <span><a href="/posts">Go Back</a></span>
         </article>
-    
+
 </body>
 </html>
