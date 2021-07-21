@@ -34,21 +34,54 @@ class Post
         $this->slug = $slug;
     }
 
+    /**
+     * all
+     * 
+     * @return mixed|object
+     */
     public static function all()
     {
-        $files = File::files(resource_path("posts"));
-
-        return collect($files)->map(function ($file) {
-            $document = YamlFrontMatter::parseFile($file);
-
-            return new Post(
+        return collect(File::files(resource_path("posts")))
+            ->map(fn ($file) => YamlFrontMatter::parseFile($file))
+            ->map(fn ($document) => new Post(
                 $document->matter('title'),
                 $document->matter('excerpt'),
                 $document->matter('date'),
                 $document->body(),
                 $document->matter('slug')
-            );
-        });
+            ));
+
+        // ----------------------------------------------------------
+
+        // return collect(File::files(resource_path("posts")))
+        // ->map(function ($file) {
+        //     return YamlFrontMatter::parseFile($file);
+        // })
+        // ->map(function ($document) {
+        //     return new Post(
+        //         $document->matter('title'),
+        //         $document->matter('excerpt'),
+        //         $document->matter('date'),
+        //         $document->body(),
+        //         $document->matter('slug')
+        //     );
+        // });
+
+
+        // ----------------------------------------------------------
+
+        // $files = File::files(resource_path("posts"));
+        // return collect($files)
+        //     ->map(function ($file) {
+        //         $document = YamlFrontMatter::parseFile($file);
+        //         return new Post(
+        //             $document->matter('title'),
+        //             $document->matter('excerpt'),
+        //             $document->matter('date'),
+        //             $document->body(),
+        //             $document->matter('slug')
+        //         );
+        //     });
 
         // ---------------------------------------------------------- 
 
