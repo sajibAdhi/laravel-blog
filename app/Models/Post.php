@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\File;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Post
 {
@@ -11,6 +12,7 @@ class Post
     public $excerpt;
     public $date;
     public $body;
+    public $slug;
 
     /**
      * construct
@@ -19,24 +21,62 @@ class Post
      * @param mixed $excerpt
      * @param mixed $date
      * @param mixed $body
-     *
+     * @param mixed $slug
+     * 
      * @return void
      */
-    public function __construct($title, $excerpt, $date, $body)
+    public function __construct($title, $excerpt, $date, $body, $slug)
     {
         $this->title = $title;
         $this->excerpt = $excerpt;
         $this->date = $date;
         $this->body = $body;
+        $this->slug = $slug;
     }
 
     public static function all()
     {
-        $files =  File::files(resource_path("posts/"));
+        $files = File::files(resource_path("posts"));
 
-        return array_map(function ($file) {
-            return $file->getContents();
-        }, $files);
+        return collect($files)->map(function ($file) {
+            $document = YamlFrontMatter::parseFile($file);
+
+            return new Post(
+                $document->matter('title'),
+                $document->matter('excerpt'),
+                $document->matter('date'),
+                $document->body(),
+                $document->matter('slug')
+            );
+        });
+
+        // ---------------------------------------------------------- 
+
+        // return array_map(function ($file) {
+        //     $document = YamlFrontMatter::parseFile($file);
+        //     return new Post(
+        //         $document->matter('title'),
+        //         $document->matter('excerpt'),
+        //         $document->matter('date'),
+        //         $document->body(),
+        //         $document->matter('slug')
+        //     );
+        // }, $files);
+
+        //----------------------------------------------------------
+
+        // $posts = [];
+        // foreach ($files as $file) {
+        //     $document = YamlFrontMatter::parseFile($file);
+        //     $posts[] = new Post(
+        //         $document->matter('title'),
+        //         $document->matter('excerpt'),
+        //         $document->matter('date'),
+        //         $document->body(),
+        //         $document->slug
+        //     );
+        // }
+        // return $posts;
     }
 
     /**
