@@ -11,8 +11,8 @@
 <body>
     <?php foreach ($posts as $post) :?>
         <article>
-
-            <?= $post ?>
+            <h1><?= $post->title ?></h1>
+            <p><?= $post->excerpt?></p>
         </article>
     <?php endforeach; ?>
     

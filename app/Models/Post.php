@@ -7,6 +7,28 @@ use Illuminate\Support\Facades\File;
 
 class Post
 {
+    public $title;
+    public $excerpt;
+    public $date;
+    public $body;
+
+    /**
+     * construct
+     *
+     * @param mixed $title
+     * @param mixed $excerpt
+     * @param mixed $date
+     * @param mixed $body
+     *
+     * @return void
+     */
+    public function __construct($title, $excerpt, $date, $body)
+    {
+        $this->title = $title;
+        $this->excerpt = $excerpt;
+        $this->date = $date;
+        $this->body = $body;
+    }
 
     public static function all()
     {
