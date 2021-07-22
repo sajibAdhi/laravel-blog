@@ -12,7 +12,7 @@
 
 <body>
 
-    {{ $slot }}
+    @yield('content')
 
 </body>
 
