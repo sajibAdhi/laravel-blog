@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class Post
@@ -40,18 +41,18 @@ class Post
      */
     public static function all()
     {
-        return cache()->rememberForever('posts.all', function () {
-            return collect(File::files(resource_path("posts")))
-                ->map(fn ($file) => YamlFrontMatter::parseFile($file))
-                ->map(fn ($document) => new Post(
-                    $document->matter('title'),
-                    $document->matter('excerpt'),
-                    $document->matter('date'),
-                    $document->body(),
-                    $document->matter('slug')
-                ))
-                ->sortBy('date');
+        Cache::remember('posts.all', 300, function () {
         });
+        return collect(File::files(resource_path("posts")))
+            ->map(fn ($file) => YamlFrontMatter::parseFile($file))
+            ->map(fn ($document) => new Post(
+                $document->matter('title'),
+                $document->matter('excerpt'),
+                $document->matter('date'),
+                $document->body(),
+                $document->matter('slug')
+            ))
+            ->sortBy('date');
 
         // ----------------------------------------------------------
 
