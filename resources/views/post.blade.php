@@ -10,10 +10,14 @@
 </head>
 <body>
         <article>
-            <?= $post ?>
-
-            <span><a href="/posts">Go Back</a></span>
+            <h1>
+                <a href="<?= url("/posts/{$post->slug}") ?>">
+                <?= $post->title ?>
+                </a>
+            </h1>
+            <p><?= $post->body?></p>
         </article>
+        <span><a href="/posts">Go Back</a></span>
 
 </body>
 </html>

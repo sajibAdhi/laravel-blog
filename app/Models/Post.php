@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\File;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Post
 {
@@ -115,16 +114,12 @@ class Post
     /**
      * find
      *
-     * @param mixed $post
+     * @param string $slug
      *
-     * @return void
+     * @return mixed|object
      */
-    public static function find($post)
+    public static function find($slug)
     {
-        if (!file_exists($path = resource_path("posts/{$post}.html"))) {
-            throw new ModelNotFoundException();
-        }
-
-        return cache()->remember("posts.{$post}", 1200, fn () => file_get_contents($path));
+        return static::all()->firstWhere('slug', $slug);
     }
 }
