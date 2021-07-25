@@ -4,7 +4,7 @@
     @foreach ($posts as $post)
         <article>
             <h1>
-                <a href="{{ url("/posts/$post->id") }}">
+                <a href="{{ url("/posts/$post->slug") }}">
                     {{ $post->title }}
                 </a>
             </h1>
