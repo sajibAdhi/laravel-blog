@@ -12,7 +12,7 @@
                 {{ $post->excerpt }}
             </div>
             <p>
-                <a href="#">
+                <a href="{{ url("catagories/$posts->category->id") }}">
                     {{ $post->category->name }}
                 </a>
             </p>
