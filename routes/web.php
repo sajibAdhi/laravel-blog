@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    redirect('/posts');
+    return redirect('/posts');
 });
 
 Route::get('/posts', function () {
