@@ -2,6 +2,7 @@
     @foreach ($posts as $post)
         <article>
             <h1>
+
                 <a href="{{ url("/posts/$post->slug") }}">
                     {{ $post->title }}
                 </a>
@@ -10,6 +11,7 @@
                 {{ $post->excerpt }}
             </div>
             <p>
+                By <a href="#">{{ $post->user->name }}</a> in
                 <a href="{{ url('categories/' . $post->category->slug) }}">
                     {{ $post->category->name }}
                 </a>
