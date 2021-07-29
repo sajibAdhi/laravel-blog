@@ -21,12 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/posts', function () {
-    DB::listen(function ($query) {
-        logger($query->sql);
-    });
-
     return view('posts', [
-        'posts' => Post::all()
+        'posts' => Post::with('category')->get()
     ]);
 });
 
