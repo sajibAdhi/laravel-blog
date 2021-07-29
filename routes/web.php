@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => redirect('/posts'));
+Route::get('/', function () {
+    redirect('/posts');
+});
 
 Route::get('/posts', function () {
+    DB::listen(function ($query) {
+        logger($query->sql);
+    });
+
     return view('posts', [
         'posts' => Post::all()
     ]);
