@@ -12,12 +12,7 @@
                 {{ $post->excerpt }}
             </div>
             <p>
-                <?php
-                    /**
-                     * @todo on Hold
-                     * /
-                    ?>
-                <a href="{{ url("catagories/$posts->category->id") }}">
+                <a href="{{ url('categories/' . $post->category->slug) }}">
                     {{ $post->category->name }}
                 </a>
             </p>
