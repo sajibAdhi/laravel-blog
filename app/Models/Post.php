@@ -24,6 +24,13 @@ class Post extends Model
     ];
 
     /**
+     * load data with 'category', 'author'
+     *
+     * @var array
+     */
+    protected $with = ['category', 'author'];
+
+    /**
      * Get the Category that owns the Post
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
