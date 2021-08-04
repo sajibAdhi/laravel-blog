@@ -26,7 +26,7 @@ Route::get('/posts', function () {
         'posts' => Post::latest()->get(),
         'categories' => Category::all(),
     ]);
-});
+})->name('home');
 
 Route::get('/posts/{post:slug}', function (Post $post) { // Post::where('slug', $post)->finfOrFail();
 
