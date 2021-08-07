@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Category;
 
 class PostController extends Controller
 {
+    /**
+     * Index Show All Posts
+     *
+     * @return string|array
+     */
     public function index()
     {
         return view('posts.index', [
@@ -16,6 +20,12 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Show a Post
+     *
+     * @param Post $post
+     * @return string|array
+     */
     public function show(Post $post)
     {
         return view('posts.show', [
