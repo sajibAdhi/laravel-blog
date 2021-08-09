@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Register;
+use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -20,7 +25,7 @@ class RegisterController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -30,19 +35,27 @@ class RegisterController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $attributes = request()->validate([
+            'name' => 'required|max:255|min:3',
+            'username' => 'required|max:255|min:3',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:7 ',
+        ]);
+
+        User::create($attributes);
+
+        return redirect(route('home'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
+     * @param Register $register
+     * @return void
      */
     public function show(Register $register)
     {
@@ -52,8 +65,8 @@ class RegisterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
+     * @param Register $register
+     * @return void
      */
     public function edit(Register $register)
     {
@@ -63,9 +76,9 @@ class RegisterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Register $register
+     * @return void
      */
     public function update(Request $request, Register $register)
     {
@@ -75,8 +88,8 @@ class RegisterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
+     * @param Register $register
+     * @return void
      */
     public function destroy(Register $register)
     {
