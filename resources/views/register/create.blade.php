@@ -3,30 +3,6 @@
         <h1 class="text-center font-bold text-xl">Register</h1>
         <form action="/register" method="post" class="mt-10">
             @csrf
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-grey-700" for="name">
-                    name
-                </label>
-
-                <input class="border border-grey-400 p-2 w-full" type="text" name="name" id="name"
-                    value="{{ old('name') }}" required>
-
-                @error('name')
-                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label class="block mb-2 uppercase font-bold text-xs text-grey-700" for="username">
-                    Username
-                </label>
-
-                <input class="border border-grey-400 p-2 w-full" type="text" name="username" id="username"
-                    value="{{ old('username') }}" required>
-                @error('username')
-                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
 
             <div class="mb-6">
                 <label class="block mb-2 uppercase font-bold text-xs text-grey-700" for="email">
@@ -46,8 +22,7 @@
                     password
                 </label>
 
-                <input class="border border-grey-400 p-2 w-full" type="password" name="password" id="password"
-                    required>
+                <input class="border border-grey-400 p-2 w-full" type="password" name="password" id="password" required>
                 @error('password')
                     <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -55,7 +30,7 @@
 
             <div class="mb-6">
                 <button type="submit" class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
-                    Submit
+                    Log In
                 </button>
             </div>
         </form>
