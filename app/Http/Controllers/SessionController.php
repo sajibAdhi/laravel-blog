@@ -31,6 +31,7 @@ class SessionController extends Controller
         ]);
 
         if (Auth::attempt($attributes)) {
+            session()->regenerate();
             return redirect(route('home'))->with('Success', 'Welcome Back!');
         }
 
